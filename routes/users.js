@@ -30,7 +30,7 @@ router.get("/:id", (req, res) => {
 
     const { id } = req.params;
     const users = JSON.parse(data.toString("utf8"));
-    const user = users.find((user) => user._id === id);
+    const user = users.find((us) => us._id === id);
 
     if (!user) {
       res.status(404).send({ error: "ID de usuario no encontrado" });
