@@ -2,6 +2,7 @@ import express from "express";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { HttpStatus } from "../enums/http.js";
 
 const router = express.Router();
 
@@ -33,7 +34,9 @@ router.get("/:id", (req, res) => {
     const user = users.find((us) => us._id === id);
 
     if (!user) {
-      res.status(404).send({ error: "ID de usuario no encontrado" });
+      res
+        .status(HttpStatus.NOT_FOUND)
+        .send({ error: "ID de usuario no encontrado" });
       return;
     }
 
