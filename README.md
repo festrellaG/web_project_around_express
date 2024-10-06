@@ -4,7 +4,7 @@ Es un proyecto backend que obtiene los datos necesarios para mostrar cartas e in
 
 # Tecnologías usadas en este proyecto
 
-javascript, eslint
+javascript, eslint, mongoDB
 
 # Evidencias de pruebas en postman
 
@@ -19,3 +19,7 @@ javascript, eslint
 # Prueba para obtener todas las cartas
 
 ![alt text](image-2.png)
+
+# Prueba para crear cartas
+
+![alt text](image-3.png)

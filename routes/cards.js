@@ -1,25 +1,22 @@
 import express from "express";
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
+import {
+  getCards,
+  createCard,
+  deleteCardById,
+  cardLikes,
+  cardDislikes,
+} from "../controllers/cards.js";
 
 const router = express.Router();
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const filePath = path.join(__dirname, "../data/cards.json");
+router.get("/", getCards);
 
-router.get("/", (req, res) => {
-  fs.readFile(filePath, (err, data) => {
-    if (err) {
-      console.log(err);
-      return;
-    }
+router.post("/", createCard);
 
-    const cards = data.toString("utf8");
-    const card = JSON.parse(cards);
-    res.send(card);
-  });
-});
+router.delete("/:id", deleteCardById);
+
+router.put("/:cardId/likes", cardLikes);
+
+router.delete("/:cardId/likes", cardDislikes);
 
 export default router;

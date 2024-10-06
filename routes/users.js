@@ -1,47 +1,22 @@
 import express from "express";
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
-import { HttpStatus } from "../enums/http.js";
+import {
+  getUsers,
+  createUser,
+  getUserById,
+  updateProfile,
+  updateAvatar,
+} from "../controllers/users.js";
 
 const router = express.Router();
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const filePath = path.join(__dirname, "../data/users.json");
+router.get("/", getUsers);
 
-router.get("/", (req, res) => {
-  fs.readFile(filePath, (err, data) => {
-    if (err) {
-      console.log(err);
-      return;
-    }
+router.get("/:id", getUserById);
 
-    const users = JSON.parse(data.toString("utf8"));
-    res.send(users);
-  });
-});
+router.post("/", createUser);
 
-router.get("/:id", (req, res) => {
-  fs.readFile(filePath, (err, data) => {
-    if (err) {
-      console.log(err);
-      return;
-    }
+router.patch("/me", updateProfile);
 
-    const { id } = req.params;
-    const users = JSON.parse(data.toString("utf8"));
-    const user = users.find((us) => us._id === id);
-
-    if (!user) {
-      res
-        .status(HttpStatus.NOT_FOUND)
-        .send({ error: "ID de usuario no encontrado" });
-      return;
-    }
-
-    res.send(user);
-  });
-});
+router.patch("/me/avatar", updateAvatar);
 
 export default router;
